@@ -15,12 +15,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<EmployeeManagerContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//DIq
+//cors
+builder.Services.AddCors();
+//DI
 IoC.RegisterServices(builder.Services);
 
 
 var app = builder.Build();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+app.UseCors(builder => builder.WithOrigins("http://localhost:4200"));
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
