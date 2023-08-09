@@ -16,14 +16,14 @@ namespace EmployeeManager.Api.Controllers
             _employeeService = employeeService;
         }
 
-        [HttpGet(Name = nameof(GetAll))]
-        public async Task<IEnumerable<EmployeeTableViewDto>> GetAll( [FromHeader] EmployeeGetAllQuery query)
+        [HttpGet(nameof(GetAll))]
+        public async Task<IEnumerable<EmployeeTableViewDto>> GetAll( [FromRoute] EmployeeGetAllQuery query)
         {
             return await _employeeService.GetAllEmployeesAsync(query);
         }
 
-        [HttpGet(Name = nameof(GetById))]
-        public async Task<EmployeeCardViewDto> GetById([FromHeader] EmployeeGetByIdQuery query)
+        [HttpGet($"{nameof(GetById)}/{{Id}}")]
+        public async Task<EmployeeCardViewDto> GetById([FromRoute] EmployeeGetByIdQuery query)
         {
             return await _employeeService.GetEmployeeByIdAsync(query);
         }
@@ -43,7 +43,7 @@ namespace EmployeeManager.Api.Controllers
         [HttpDelete(Name = nameof(Delete))]
         public async Task Delete([FromBody] EmployeeDeleteCommand command)
         {
-           await _employeeService.DeleteEmployeeAsync(command);
+            await _employeeService.DeleteEmployeeAsync(command);
         }
     }
 }
