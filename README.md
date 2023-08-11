@@ -1,7 +1,8 @@
 # EmployeeManager
  Test app on asp.net/angular.
  TODO:
- 
+
+ Отписаться от observable везде
  Перенести сортировку и фильтрацию в directive
  
 О компании
