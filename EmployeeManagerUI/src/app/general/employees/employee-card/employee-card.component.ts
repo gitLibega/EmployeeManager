@@ -15,12 +15,13 @@ export class EmployeeCardComponent implements OnInit {
   @Input() state: State = State.Add;
 
   model: employeeCardViewDto = new employeeCardViewDto();
-  title: string = "Датали";
+  title: string = "Добавить";
   constructor(private employeeService: EmployeeService, public activeModal: NgbActiveModal, private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<Date>) { }
 
   ngOnInit() {
     if (!this.state) this.state = State.Add;
     if (this.state == State.Edit) {
+      this.title = "Редактировать";
       this.loadData();
     }
   }
