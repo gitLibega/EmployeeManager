@@ -16,7 +16,7 @@ namespace EmployeeManager.Api.Controllers
             _employeeService = employeeService;
         }
 
-        [HttpGet(nameof(GetAll))]
+        [HttpGet($"{nameof(GetAll)}")]
         public async Task<IEnumerable<EmployeeTableViewDto>> GetAll( [FromRoute] EmployeeGetAllQuery query)
         {
             return await _employeeService.GetAllEmployeesAsync(query);
@@ -28,20 +28,20 @@ namespace EmployeeManager.Api.Controllers
             return await _employeeService.GetEmployeeByIdAsync(query);
         }
 
-        [HttpPost(Name = nameof(Add))]
+        [HttpPost(nameof(Add))]
         public async Task Add([FromBody] EmployeeAddCommand command)
         {
             await _employeeService.AddEmployeeAsync(command);
         }
 
-        [HttpPut(Name = nameof(Update))]
+        [HttpPut(nameof(Update))]
         public async Task Update([FromBody] EmployeeUpdateCommand command)
         {
             await _employeeService.UpdateEmployeeAsync(command);
         }
 
-        [HttpDelete(Name = nameof(Delete))]
-        public async Task Delete([FromBody] EmployeeDeleteCommand command)
+        [HttpDelete($"{nameof(Delete)}/{{Id}}")]
+        public async Task Delete([FromRoute] EmployeeDeleteCommand command)
         {
             await _employeeService.DeleteEmployeeAsync(command);
         }

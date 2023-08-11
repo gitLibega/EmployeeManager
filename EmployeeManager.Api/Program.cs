@@ -1,5 +1,6 @@
 using EmployeeManager.Api.IoC;
 using EmployeeManager.Infrastructure.Context;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,14 @@ builder.Services.AddDbContext<EmployeeManagerContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //cors
-builder.Services.AddCors();
+builder.Services.AddCors(options => {
+    options.AddPolicy("AllowLocalhost",
+    builder => builder
+    .WithOrigins("http://localhost:4200")
+    .AllowAnyOrigin()
+    .AllowAnyHeader()
+    .AllowAnyMethod());
+});
 //DI
 IoC.RegisterServices(builder.Services);
 
@@ -25,8 +33,7 @@ var app = builder.Build();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
-
-app.UseCors(builder => builder.WithOrigins("http://localhost:4200"));
+app.UseCors("AllowLocalhost");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

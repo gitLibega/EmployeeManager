@@ -1,0 +1,61 @@
+
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">{{title}}</h4>
+      <button type="button" class=" btn btn-light btn-close" data-dismiss="modal" aria-label="Close" (click)="close()">
+      </button>
+    </div>
+    <div class="modal-body">
+      
+      <div class="mb-3">
+        <label for="lastName" class="form-label">Фамилия</label>
+        <input [(ngModel)]="model.lastName" type="text" class="form-control" id="lastName" placeholder="Фамилия">
+      </div>
+      <div class="mb-3">
+        <label for="firstName" class="form-label">Имя</label>
+        <input [(ngModel)]="model.firstName" type="text" class="form-control" id="firstName" placeholder="Имя">
+      </div>
+      <div class="mb-3">
+        <label for="patronymic" class="form-label">Отчество</label>
+        <input [(ngModel)]="model.patronymic" type="text" class="form-control" id="patrpatronymiconomic" placeholder="Отчество">
+      </div>
+      <div class="mb-3">
+        <label for="department" class="form-label">Отдел</label>
+        <input [(ngModel)]="model.department" type="text" class="form-control" id="department" placeholder="Отдел">
+      </div>
+      <div class="mb-3">
+        <label for="salary" class="form-label">Зарплата</label>
+        <input [(ngModel)]="model.salary" type="number" max="3" class="form-control" id="salary" placeholder="Отдел">
+      </div>
+       <div class="mb-3">
+          <label for="dp" class="form-label">Дата рождения</label>
+            <div class="input-group">
+              <input
+              [(ngModel)]="model.dateOfBirth"
+                class="form-control"
+                placeholder="Введите дату"
+                name="dp"
+                ngbDatepicker
+                #dp="ngbDatepicker"
+              />
+              <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
+            </div>
+        </div>
+        <div class="mb-3">
+          <label for="dp2" class="form-label">Дата зачисления на работу</label>
+              <input
+              [(ngModel)]="model.dateOfEmployment"
+                class="form-control"
+                placeholder="Введите дату"
+                name="dp2"
+                ngbDatepicker
+                #dp2="ngbDatepicker"
+              />
+              <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp2.toggle()" type="button"></button>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Закрыть</button>
+        <button type="submit" class="btn btn-primary" (click)="save()">Сохранить</button>
+    </div>
+  </div>

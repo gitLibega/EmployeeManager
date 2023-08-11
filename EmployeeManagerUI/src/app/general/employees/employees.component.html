@@ -1,0 +1,67 @@
+<h1>Сотрудники</h1>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">ФИО <i style="cursor: pointer;" (click)="sort('fullName')"
+          [ngClass]="{'bi bi-sort-up': sortProps.fullName == 1,'bi bi-arrows-collapse': sortProps.fullName == 0, 'bi bi-sort-down':sortProps.fullName == 2}"></i>
+      </th>
+      <th scope="col">Дата рождения <i style="cursor: pointer;" (click)="sort('dateOfBirth')"
+          [ngClass]="{'bi bi-sort-up': sortProps.dateOfBirth == 1,'bi bi-arrows-collapse': sortProps.dateOfBirth == 0, 'bi bi-sort-down': sortProps.dateOfBirth == 2}"></i>
+      </th>
+      <th scope="col">Дата устройства на работу <i style="cursor: pointer;" (click)="sort('dateOfEmployment')"
+          [ngClass]="{'bi bi-sort-up': sortProps.dateOfEmployment == 1,'bi bi-arrows-collapse': sortProps.dateOfEmployment == 0, 'bi bi-sort-down': sortProps.dateOfEmployment == 2}"></i>
+      </th>
+      <th scope="col">Зарплата <i style="cursor: pointer;" (click)="sort('salary')"
+          [ngClass]="{'bi bi-sort-up': sortProps.salary == 1,'bi bi-arrows-collapse': sortProps.salary == 0, 'bi bi-sort-down':sortProps.salary == 2}"></i>
+      </th>
+      <th scope="col">Отдел <i style="cursor: pointer;" (click)="sort('department')"
+          [ngClass]="{'bi bi-sort-up': sortProps.department == 1,'bi bi-arrows-collapse': sortProps.department == 0, 'bi bi-sort-down':sortProps.department == 2}"></i>
+      </th>
+      <th scope="col"></th>
+    </tr>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">
+        <div class="input-group">
+          <input (change)="filter('fullName')" [(ngModel)]="filterProps.fullName" type="text" class="form-control"
+            placeholder="ФИО">
+        </div>
+      </th>
+      <th scope="col">
+        <div class="input-group">
+          <input (blur)="filter('dateOfBirth',true)" [(ngModel)]="filterProps.dateOfBirth" class="form-control"
+            placeholder="Введите дату" name="dp" ngbDatepicker #dp="ngbDatepicker" />
+          <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
+        </div>
+      </th>
+      <th scope="col">
+        <div class="input-group">
+          <input (blur)="filter('dateOfEmployment',true)" [(ngModel)]="filterProps.dateOfEmployment"
+            class="form-control" placeholder="Введите дату" name="dp2" ngbDatepicker #dp2="ngbDatepicker" />
+          <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp2.toggle()" type="button"></button>
+        </div>
+      </th>
+      <th scope="col"><input (change)="filter('salary')" [(ngModel)]="filterProps.salary" type="number"
+          class="form-control" placeholder="Зарплата"></th>
+      <th scope="col"><input (change)="filter('department')" [(ngModel)]="filterProps.department" type="text"
+          class="form-control" placeholder="Отдел"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employee of dataSource ; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{employee.fullName}}</td>
+      <td>{{employee.dateOfBirth | date: 'yyyy-MM-dd'}}</td>
+      <td>{{employee.dateOfEmployment | date: 'yyyy-MM-dd'}}</td>
+      <td>{{employee.salary}}</td>
+      <td>{{employee.department}}</td>
+      <td>
+        <button type="button" class="btn btn-outline-dark btn-sm" (click)="onAddClick(employee)">Добавить</button>
+        <button type="button" class="btn btn-outline-dark btn-sm" (click)="onEditClick(employee)">Редактировать</button>
+        <button type="button" class="btn btn-outline-dark btn-sm" (click)="onDeleteClick(employee)">Удалить</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

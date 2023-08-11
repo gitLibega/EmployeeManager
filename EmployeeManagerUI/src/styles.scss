@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+@font-face {
+    font-family: "custom";
+    src: url(assets/resources/fonts/bebas_neue_regular.ttf);
+}
+
+h1, h4 {
+font-family: custom;
+
+}
+body {
+    font-family: custom;
+    background-color: rgba(190, 248, 185, 0.13);
+    padding-bottom: 2%;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+
+}
