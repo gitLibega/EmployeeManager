@@ -24,29 +24,32 @@
       <th scope="col"></th>
       <th scope="col">
         <div class="input-group">
-          <input (change)="filter('fullName')" [(ngModel)]="filterProps.fullName" type="text" class="form-control"
+          <input  [(ngModel)]="filterProps.fullName" type="text" class="form-control"
             placeholder="ФИО">
         </div>
       </th>
       <th scope="col">
         <div class="input-group">
-          <input (blur)="filter('dateOfBirth',true)" [(ngModel)]="filterProps.dateOfBirth" class="form-control"
+          <input  [(ngModel)]="filterProps.dateOfBirth" class="form-control"
             placeholder="Введите дату" name="dp" ngbDatepicker #dp="ngbDatepicker" />
           <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
         </div>
       </th>
       <th scope="col">
         <div class="input-group">
-          <input (blur)="filter('dateOfEmployment',true)" [(ngModel)]="filterProps.dateOfEmployment"
+          <input  [(ngModel)]="filterProps.dateOfEmployment"
             class="form-control" placeholder="Введите дату" name="dp2" ngbDatepicker #dp2="ngbDatepicker" />
           <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp2.toggle()" type="button"></button>
         </div>
       </th>
-      <th scope="col"><input (change)="filter('salary')" [(ngModel)]="filterProps.salary" type="number"
+      <th scope="col"><input  [(ngModel)]="filterProps.salary" type="number"
           class="form-control" placeholder="Зарплата"></th>
-      <th scope="col"><input (change)="filter('department')" [(ngModel)]="filterProps.department" type="text"
+      <th scope="col"><input  [(ngModel)]="filterProps.department" type="text"
           class="form-control" placeholder="Отдел"></th>
-      <th scope="col"></th>
+      <th scope="col">
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="filter()">Применить фильтр</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="filter(true)">Отменить фильтр</button>
+      </th>
     </tr>
   </thead>
   <tbody>

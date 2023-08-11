@@ -1,4 +1,4 @@
-export class EmployeeCardViewDto {
+export class employeeCardViewDto {
     id: number;
     firstName: string;
     lastName: string;

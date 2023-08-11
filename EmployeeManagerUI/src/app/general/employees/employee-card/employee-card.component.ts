@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { NgbActiveModal, NgbCalendar, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
-import { EmployeeCardViewDto } from 'src/app/domain/dto/employeeCardViewDto';
+import { employeeCardViewDto } from 'src/app/domain/dto/employeeCardViewDto';
 import { State } from 'src/app/domain/enum/state.enum';
 import { EmployeeService } from '../employee.service';
 import { CustomAdapter } from 'src/app/datepicker-adapter';
@@ -14,7 +14,7 @@ export class EmployeeCardComponent implements OnInit {
   @Input() employeeId: number = 0;
   @Input() state: State = State.Add;
 
-  model: EmployeeCardViewDto = new EmployeeCardViewDto();
+  model: employeeCardViewDto = new employeeCardViewDto();
   title: string = "Датали";
   constructor(private employeeService: EmployeeService, public activeModal: NgbActiveModal, private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<Date>) { }
 

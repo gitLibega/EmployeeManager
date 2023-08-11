@@ -3,7 +3,7 @@ import { EmployeeService } from './employee.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeCardComponent } from './employee-card/employee-card.component';
 import { State } from 'src/app/domain/enum/state.enum';
-import { EmployeeTableViewDto } from 'src/app/domain/dto/employeeTableViewDto';
+import { employeeTableViewDto } from 'src/app/domain/dto/employeeTableViewDto';
 import { DeleteInfoComponent } from 'src/app/components/delete-info/delete-info.component';
 
 @Component({
@@ -12,9 +12,9 @@ import { DeleteInfoComponent } from 'src/app/components/delete-info/delete-info.
   styleUrls: ['./employees.component.scss']
 })
 export class EmployeesComponent implements OnInit {
-  employeesData: EmployeeTableViewDto[] = [];
-  filteredEmployeesData: EmployeeTableViewDto[] = [];
-  dataSource: EmployeeTableViewDto[] = [];
+  employeesData: employeeTableViewDto[] = [];
+  filteredEmployeesData: employeeTableViewDto[] = [];
+  dataSource: employeeTableViewDto[] = [];
 
   filterProps = {
     fullName:"",
@@ -37,7 +37,7 @@ export class EmployeesComponent implements OnInit {
     this.load();
   }
 
-  onEditClick(row: EmployeeTableViewDto) {
+  onEditClick(row: employeeTableViewDto) {
     const modalRef = this.modalService.open(EmployeeCardComponent)
     modalRef.componentInstance.state = State.Edit;
     modalRef.componentInstance.employeeId = row.id;
@@ -48,7 +48,7 @@ export class EmployeesComponent implements OnInit {
     });
   }
 
-  onAddClick(row: EmployeeTableViewDto) {
+  onAddClick(row: employeeTableViewDto) {
     const modalRef = this.modalService.open(EmployeeCardComponent);
     modalRef.componentInstance.state = State.Add;
     modalRef.componentInstance.employeeId = row.id;
@@ -59,7 +59,7 @@ export class EmployeesComponent implements OnInit {
     });
   }
 
-  onDeleteClick(row: EmployeeTableViewDto){
+  onDeleteClick(row: employeeTableViewDto){
     this.modalService.open(DeleteInfoComponent).closed.subscribe(x => {
       if(!x) return;      
       this.employeeService.delete(row.id).subscribe(x => {
@@ -82,18 +82,33 @@ export class EmployeesComponent implements OnInit {
     Object.keys(this.sortProps).forEach(x => this.sortProps[x] = 0)
   }
 
-  filter(propName, isDate?: boolean) {
-    console.log(this.filterProps[propName]);
-    if(!this.filterProps[propName] ) {
+  filter(remFilter:boolean= false) {
+    if(remFilter) {
+      Object.keys(this.filterProps).forEach(prop => {
+        this.filterProps[prop] = "";
+      });
       this.dataSource = this.employeesData;
+    }
+    let condition = "";
+    Object.keys(this.filterProps).forEach(prop => {
+      if(this.filterProps[prop]) {
+        if(condition != "") condition += " && "
+        if(this.filterProps[prop] instanceof Date && !isNaN(this.filterProps[prop])) {
+          condition += `new Date(x['${prop}']).toLocaleDateString("en-US") == new Date(this.filterProps['${prop}']).toLocaleDateString("en-US")`;
+          return;
+        }
+        condition += `x['${prop}'].toString().includes(this.filterProps['${prop}'].toString())`
+      }
+    });
+    if(condition != "") {
+      //var finalCondition=condition.substring(2, condition.length);
+      this.dataSource = this.employeesData.filter(x => eval(condition));
+
       return;
     }
-    if(isDate) {
-      this.dataSource = this.employeesData.filter(x => new Date(x[propName]).toLocaleDateString("en-US") == new Date(this.filterProps[propName]).toLocaleDateString("en-US"));
-      
-      return;
-    }
-    this.dataSource = this.employeesData.filter(x => x[propName].toString().includes(this.filterProps[propName].toString()));
+    
+    this.dataSource = this.employeesData;
+
   }
 
   sort(propName) {

@@ -1,4 +1,4 @@
-export class EmployeeTableViewDto {
+export class employeeTableViewDto {
     id: number;
     fullName: string;
     dateOfBirth: Date;

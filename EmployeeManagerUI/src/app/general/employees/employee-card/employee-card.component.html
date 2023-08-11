@@ -43,6 +43,7 @@
         </div>
         <div class="mb-3">
           <label for="dp2" class="form-label">Дата зачисления на работу</label>
+            <div class="input-group">
               <input
               [(ngModel)]="model.dateOfEmployment"
                 class="form-control"
@@ -52,6 +53,7 @@
                 #dp2="ngbDatepicker"
               />
               <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp2.toggle()" type="button"></button>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
